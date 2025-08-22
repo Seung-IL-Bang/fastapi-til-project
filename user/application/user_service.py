@@ -58,7 +58,13 @@ class UserService:
 
         return user
         
-        
+    def get_users(
+        self,
+        page: int,
+        size: int
+    ):
+        total_count, users = self.user_repo.get_users(page, size)
+        return total_count, users
         
         
         

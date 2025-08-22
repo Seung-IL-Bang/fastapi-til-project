@@ -63,3 +63,17 @@ class UserRepository(IUserRespository):
         with SessionLocal() as db:
             user = db.query(User).filter(User.email == email).first()
         return user is not None
+
+    def get_users(
+        self,
+        page: int,
+        size: int
+    ) -> tuple[int, list[UserVO]]:
+        with SessionLocal() as db:
+            query = db.query(User)
+            total_count = query.count()
+
+            offset = (page - 1) * size
+            users = query.limit(size).offset(offset).all()
+
+        return total_count, [UserVO(**row_to_dict(user)) for user in users]

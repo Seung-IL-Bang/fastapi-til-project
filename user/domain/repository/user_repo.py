@@ -33,3 +33,7 @@ class IUserRespository(metaclass=ABCMeta):
         이메일로 유저 존재 여부를 확인한다.
         """
         raise NotImplementedError
+
+    @abstractmethod
+    def get_users(self, page: int, size: int) -> tuple[int, list[User]]:
+        raise NotImplementedError
