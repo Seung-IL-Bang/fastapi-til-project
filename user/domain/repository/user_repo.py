@@ -37,3 +37,7 @@ class IUserRespository(metaclass=ABCMeta):
     @abstractmethod
     def get_users(self, page: int, size: int) -> tuple[int, list[User]]:
         raise NotImplementedError
+
+    @abstractmethod
+    def delete(self, user_id: str):
+        raise NotImplementedError

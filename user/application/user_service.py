@@ -66,7 +66,11 @@ class UserService:
         total_count, users = self.user_repo.get_users(page, size)
         return total_count, users
         
-        
+    def delete_user(
+        self,
+        user_id: str
+    ):
+        self.user_repo.delete(user_id)
         
         
         
