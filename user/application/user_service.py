@@ -1,14 +1,20 @@
-from user.domain.user import User
-from user.domain.repository.user_repo import IUserRespository
-from user.infra.repository.user_repo import UserRepository
 from datetime import datetime
 from ulid import ULID
 from fastapi import HTTPException
 from utils.crypto import Crypto
+from dependency_injector.wiring import inject
+
+from user.domain.user import User
+from user.domain.repository.user_repo import IUserRespository
 
 class UserService:
-    def __init__(self):
-        self.user_repo: IUserRespository = UserRepository() # 현재는 의존성 역전 원칙을 위배하고 있음
+
+    @inject
+    def __init__(
+            self, 
+            user_repo: IUserRespository # Container에서 주입받음
+        ):
+        self.user_repo = user_repo
         self.ulid = ULID()
         self.crypto = Crypto()
 
